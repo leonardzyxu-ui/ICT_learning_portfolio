@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ICT Learning Portfolio - Concepts & Mastery</title>
-    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     
-    <!-- Configure Tailwind for a clean, Apple-inspired dark aesthetic -->
     <script>
         tailwind.config = {
             theme: {
@@ -17,6 +15,7 @@
                         'primary-black': '#1c1c1e', // Near-black background
                         'secondary-dark': '#2c2c2e', // Card background
                         'accent-blue': '#007aff', // Bright blue highlight (iOS/macOS blue)
+                        'accent-purple': '#5e5ce6', // Secondary accent
                         'text-light': '#f5f5f7', // Off-white for body text
                         'text-grey': '#8e8e93', // Subdued grey for details
                     },
@@ -28,266 +27,336 @@
         }
     </script>
     <style>
-        /* Custom styles for bold, large typography, similar to Apple product pages */
+        /* Custom styles for bold, large typography */
         .page-header {
             font-size: clamp(2.5rem, 6vw, 4.5rem);
             line-height: 1.05;
             font-weight: 800;
+            letter-spacing: -0.02em;
         }
         .page-subhead {
             font-size: clamp(1.25rem, 3vw, 1.75rem);
             line-height: 1.3;
+            font-weight: 400;
         }
         .content-card-title {
-            font-size: 1.5rem; /* 24px */
+            font-size: 1.5rem; 
             font-weight: 700;
+            letter-spacing: -0.01em;
         }
         /* Style for active navigation link */
         .nav-link.active {
             color: #f5f5f7;
             border-bottom: 2px solid #007aff;
         }
-        /* Global transitions for smoothness */
-        .content-card, .nav-link {
+        /* Global transitions */
+        .content-card, .nav-link, .btn-primary {
             transition: all 0.3s ease-in-out;
+        }
+        /* Hidden utility */
+        .hidden {
+            display: none;
+        }
+        /* Pulse Animation for Digital Media Page */
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .animate-pulse-glow {
+            animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
     </style>
 </head>
-<body class="bg-primary-black text-text-light font-sans min-h-screen">
+<body class="bg-primary-black text-text-light font-sans min-h-screen flex flex-col">
 
-    <!-- Top Navigation Bar -->
-    <nav class="sticky top-0 z-10 bg-primary-black/90 backdrop-blur-sm shadow-xl border-b border-secondary-dark/50">
+    <nav class="sticky top-0 z-50 bg-primary-black/90 backdrop-blur-md shadow-lg border-b border-secondary-dark/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <!-- Logo/Title -->
-                <div class="flex-shrink-0">
-                    <span class="text-xl font-bold text-text-light">ICT Portfolio</span>
+                <div class="flex-shrink-0 cursor-pointer" onclick="showPage('home-page')">
+                    <span class="text-xl font-bold text-text-light tracking-tight">ICT Portfolio</span>
                 </div>
-                <!-- Navigation Links -->
-                <div class="flex space-x-6 sm:space-x-10">
-                    <a href="#" class="nav-link text-text-grey hover:text-text-light py-2" data-page="home-page">Home</a>
-                    <a href="#" class="nav-link text-text-grey hover:text-text-light py-2" data-page="prompt-engineering-page">Prompt Engineering</a>
-                    <a href="#" class="nav-link text-text-grey hover:text-text-light py-2" data-page="ai-probability-page">AI & Probability</a>
-                    <a href="#" class="nav-link text-text-grey hover:text-text-light py-2" data-page="growth-feedback-page">Growth & Feedback</a>
-                    <a href="#" class="nav-link text-text-grey hover:text-text-light py-2" data-page="my-achievements-page">My Achievements</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#" class="nav-link text-text-grey hover:text-text-light py-2 text-sm font-medium" data-page="home-page">Home</a>
+                    <a href="#" class="nav-link text-text-grey hover:text-text-light py-2 text-sm font-medium" data-page="digital-media-page">Digital Media</a>
+                    <a href="#" class="nav-link text-text-grey hover:text-text-light py-2 text-sm font-medium" data-page="growth-feedback-page">Growth & Feedback</a>
+                    <a href="#" class="nav-link text-text-grey hover:text-text-light py-2 text-sm font-medium" data-page="my-achievements-page">Achievements</a>
+                </div>
+                <div class="md:hidden text-text-grey">
+                    Menu
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content Container -->
-    <main id="portfolio-container" class="py-16 md:py-24 max-w-6xl mx-auto px-4">
+    <main id="portfolio-container" class="flex-grow py-12 md:py-20 max-w-5xl mx-auto px-4 w-full">
 
-        <!-- Page 0: Home / Executive Summary -->
-        <div id="home-page" class="page-content">
+        <div id="home-page" class="page-content animate-fade-in">
             <header class="text-center mb-16">
-                <h1 class="page-header text-text-light">ICT Portfolio: Concepts & Mastery</h1>
-                <p class="page-subhead text-text-grey mt-4">A showcase of technical understanding and project execution.</p>
+                <h1 class="page-header text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+                    Concepts & Mastery
+                </h1>
+                <p class="page-subhead text-text-grey mt-6 max-w-2xl mx-auto">
+                    A technical portfolio showcasing web development, digital theory, and the design cycle.
+                </p>
             </header>
             
-            <div class="space-y-16">
-                <!-- Executive Summary -->
-                <div class="content-card bg-secondary-dark p-8 rounded-3xl shadow-2xl hover:shadow-accent-blue/20">
+            <div class="space-y-12">
+                <div class="content-card bg-secondary-dark/80 backdrop-blur-md p-8 md:p-10 rounded-3xl border border-white/5 shadow-2xl">
                     <h2 class="content-card-title text-accent-blue mb-4">Executive Summary</h2>
-                    <p class="text-xl leading-relaxed text-text-light">
-                        This portfolio represents a deep dive into core <strong>Information and Communication Technology (ICT)</strong> concepts. It demonstrates mastery in analyzing complex systems, understanding the statistical nature of Artificial Intelligence, and applying a robust **Growth Mindset** to development challenges. The final achievement is the successful application of these concepts in high-quality web design projects.
+                    <p class="text-lg leading-relaxed text-gray-300">
+                        This portfolio represents a deep dive into core <strong>Information and Communication Technology (ICT)</strong> concepts. 
+                        It moves beyond simple execution to demonstrate a mastery of <em>why</em> things work—from the physics of raster images to the 
+                        statistical nature of AI. It culminates in professional-grade web projects built with 
+                        <strong>Tailwind CSS</strong> and <strong>Semantically Correct HTML</strong>.
                     </p>
                 </div>
 
-                <!-- Contents/Internal Navigation -->
-                <div class="bg-primary-black/50 p-8 rounded-3xl shadow-xl border border-secondary-dark/50">
-                    <h2 class="content-card-title text-text-light mb-6 border-b border-text-grey/30 pb-3">Contents</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <a href="#" class="contents-link group block p-5 rounded-xl hover:bg-secondary-dark/50 transition-colors duration-200" data-page="prompt-engineering-page">
-                            <p class="text-lg font-bold text-accent-blue group-hover:text-text-light">Prompt Engineering</p>
-                            <p class="text-text-grey text-sm mt-1">Mastering the conversation and iteration process with AI.</p>
-                        </a>
-                        <a href="#" class="contents-link group block p-5 rounded-xl hover:bg-secondary-dark/50 transition-colors duration-200" data-page="ai-probability-page">
-                            <p class="text-lg font-bold text-accent-blue group-hover:text-text-light">AI & Probability</p>
-                            <p class="text-text-grey text-sm mt-1">Understanding the statistical core of large language models.</p>
-                        </a>
-                        <a href="#" class="contents-link group block p-5 rounded-xl hover:bg-secondary-dark/50 transition-colors duration-200" data-page="growth-feedback-page">
-                            <p class="text-lg font-bold text-accent-blue group-hover:text-text-light">Growth & Feedback</p>
-                            <p class="text-text-grey text-sm mt-1">Embracing challenges and using feedback for continuous improvement.</p>
-                        </a>
-                        <a href="#" class="contents-link group block p-5 rounded-xl hover:bg-secondary-dark/50 transition-colors duration-200" data-page="my-achievements-page">
-                            <p class="text-lg font-bold text-accent-blue group-hover:text-text-light">My Achievements</p>
-                            <p class="text-text-grey text-sm mt-1">Projects and high-quality technical work completed.</p>
-                        </a>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <a href="#" onclick="showPage('digital-media-page')" class="group p-6 rounded-2xl bg-secondary-dark border border-white/5 hover:bg-secondary-dark/80 transition-all hover:scale-[1.02] cursor-pointer">
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-accent-blue">Digital Media</h3>
+                        <p class="text-sm text-text-grey">Vector vs Raster, SVG Code, and the "Rake" analogy.</p>
+                    </a>
+                    <a href="#" onclick="showPage('growth-feedback-page')" class="group p-6 rounded-2xl bg-secondary-dark border border-white/5 hover:bg-secondary-dark/80 transition-all hover:scale-[1.02] cursor-pointer">
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-green-400">Growth</h3>
+                        <p class="text-sm text-text-grey">The "Liquid Glass" story and resilience in coding.</p>
+                    </a>
+                    <a href="#" onclick="showPage('my-achievements-page')" class="group p-6 rounded-2xl bg-secondary-dark border border-white/5 hover:bg-secondary-dark/80 transition-all hover:scale-[1.02] cursor-pointer">
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-purple-400">Achievements</h3>
+                        <p class="text-sm text-text-grey">Falcon 9 & Apple MacBook Pro Projects.</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="digital-media-page" class="page-content hidden">
+            <header class="mb-12">
+                <h2 class="text-4xl font-bold text-text-light mb-4">Digital Media Mastery</h2>
+                <p class="text-xl text-text-grey">Understanding the "DNA" of digital images and the web.</p>
+            </header>
+
+            <div class="space-y-12">
+                <section>
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="h-8 w-1 bg-accent-blue rounded-full"></div>
+                        <h3 class="text-2xl font-bold text-white">The "Rake" vs. The "Equation"</h3>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="content-card bg-secondary-dark p-8 rounded-3xl border border-white/5">
+                            <h4 class="text-xl font-bold text-accent-blue mb-3">Raster Images</h4>
+                            <p class="text-gray-300 leading-relaxed mb-4">
+                                I discovered that the word "Raster" comes from the Latin <em>rastrum</em> (rake). This perfectly describes how early screens worked—an electron beam "raking" across the screen row by row.
+                            </p>
+                            <ul class="list-disc list-inside text-text-grey space-y-2">
+                                <li>Best for: Photographs, blending colors.</li>
+                                <li>Downside: Pixelation when zoomed.</li>
+                                <li>Tool: GIMP (Manipulated pixels directly).</li>
+                            </ul>
+                        </div>
+
+                        <div class="content-card bg-secondary-dark p-8 rounded-3xl border border-white/5">
+                            <h4 class="text-xl font-bold text-accent-purple mb-3">Vector Images</h4>
+                            <p class="text-gray-300 leading-relaxed mb-4">
+                                Unlike Raster, Vectors are defined by <strong>magnitude and direction</strong> (Math & Physics). I opened an SVG file in a text editor to prove this.
+                            </p>
+                            <div class="bg-black/50 p-4 rounded-xl font-mono text-xs text-green-400 overflow-x-auto border border-gray-800">
+                                &lt;rect x="10" y="10" width="30" height="30" fill="#ff3d00"/&gt;<br>
+                                &lt;!-- I learned that shapes are just code instructions! --&gt;
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="h-8 w-1 bg-purple-500 rounded-full"></div>
+                        <h3 class="text-2xl font-bold text-white">The Web Engine: HTML & CSS</h3>
+                    </div>
+                    <div class="content-card bg-secondary-dark p-8 rounded-3xl border border-white/5">
+                        <p class="text-xl text-text-light mb-6">
+                            HTML and CSS are not just "code"; they are the <strong>language between the computer and the server</strong>.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-bold text-white mb-2">My CSS Breakthroughs</h4>
+                                <p class="text-text-grey text-sm">
+                                    I moved beyond basic styling to advanced animations. I implemented <strong>gradient backgrounds</strong> that shift colors over time and created <strong>pulse indicators</strong> to guide user attention without distraction.
+                                </p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white mb-2">Structure First</h4>
+                                <p class="text-text-grey text-sm">
+                                    I learned that clean HTML structure is critical. Using proper tags (Semantic HTML) ensures that the CSS has a solid foundation to paint upon.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <div id="growth-feedback-page" class="page-content hidden">
+            <header class="mb-12">
+                <h2 class="text-4xl font-bold text-text-light mb-4">Growth Mindset</h2>
+                <p class="text-xl text-text-grey">Resilience, negotiation, and the feedback loop.</p>
+            </header>
+
+            <div class="space-y-8">
+                <div class="content-card bg-gradient-to-br from-secondary-dark to-[#1a1a2e] p-8 md:p-10 rounded-3xl border border-blue-500/20 shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-8 opacity-10">
+                        <svg class="w-32 h-32 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold text-white mb-4">The "Liquid Glass" Arc</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <p>
+                            <span class="text-accent-blue font-bold">The Challenge:</span> I wanted to create a "Liquid Glass" effect for my website using advanced CSS.
+                        </p>
+                        <p>
+                            <span class="text-red-400 font-bold">The Failure:</span> I tried everything. Standard CSS filters failed. I tried WebGL, but it broke the site's performance and was too complex for the timeframe. I hit a wall.
+                        </p>
+                        <p>
+                            <span class="text-green-400 font-bold">The Pivot (Growth):</span> Instead of giving up or submitting broken code, I demonstrated professional communication. I wrote a detailed email to my teacher (Jaydon), explaining the technical blocker, showing my attempts (WebGl), and negotiating a practical change to the requirements.
+                        </p>
+                        <p class="italic text-text-grey border-l-2 border-accent-blue pl-4 mt-4">
+                            "I learned that being a developer isn't just about writing code; it's about managing resources and communicating clearly when a solution isn't viable."
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content-card bg-secondary-dark p-8 rounded-3xl border border-white/5">
+                    <h3 class="text-xl font-bold text-white mb-4">Iterative Design: The Falcon 9 Project</h3>
+                    <p class="text-gray-300 mb-4">
+                        Feedback is fuel. For my Falcon 9 project, I didn't just submit the first draft.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-primary-black/50 p-5 rounded-xl">
+                            <h4 class="text-sm font-bold text-red-400 uppercase tracking-wide mb-2">Feedback Received</h4>
+                            <p class="text-sm text-text-grey">"Get rid of the points and arrows... delete the bottom part of that pic."</p>
+                        </div>
+                        <div class="bg-primary-black/50 p-5 rounded-xl">
+                            <h4 class="text-sm font-bold text-green-400 uppercase tracking-wide mb-2">Action Taken</h4>
+                            <p class="text-sm text-text-grey">I re-edited the assets, cleaned up the UI, and pushed a new version to GitHub that matched the cleaner aesthetic requested.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Page 1: Prompt Engineering -->
-        <div id="prompt-engineering-page" class="page-content hidden">
-            <header class="text-center mb-16">
-                <h1 class="page-header text-text-light">Mastering the Conversation</h1>
-                <p class="page-subhead text-text-grey mt-4">The way we ask determines what the machine answers.</p>
-            </header>
-            
-            <div class="space-y-12">
-                <!-- Card 1: The Power of Input -->
-                <div class="content-card bg-secondary-dark p-8 rounded-3xl shadow-2xl hover:shadow-accent-blue/20">
-                    <h3 class="content-card-title text-accent-blue mb-3">The Power of Input</h3>
-                    <p class="text-lg text-text-light">Artificial Intelligence (AI) models predict, they don't think. Every resulting response is fundamentally controlled by the quality and precision of the <strong>prompt</strong> we provide.</p>
-                </div>
-                
-                <!-- Card 2: Recognizing Patterns -->
-                <div class="content-card bg-secondary-dark p-8 rounded-3xl shadow-2xl hover:shadow-accent-blue/20">
-                    <h3 class="content-card-title text-accent-blue mb-3">Recognizing Patterns</h3>
-                    <p class="text-lg text-text-light">By analyzing multiple AI outputs, we learned to identify patterns and underlying tendencies. This skill allows us to anticipate the model's reaction to different input structures.</p>
-                </div>
-
-                <!-- Card 3: Iteration & Refinement -->
-                <div class="content-card bg-secondary-dark p-8 rounded-3xl shadow-2xl hover:shadow-accent-blue/20">
-                    <h3 class="content-card-title text-accent-blue mb-3">Iteration & Refinement</h3>
-                    <p class="text-lg text-text-light"><strong>Prompt Engineering</strong> is the critical skill of refining a prompt repeatedly (iterating) until the AI generates the exact, desired output. It is a loop of testing and precise adjustment.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Page 2: AI & Probability -->
-        <div id="ai-probability-page" class="page-content hidden">
-            <header class="text-center mb-16">
-                <h1 class="page-header text-text-light">The Engine of Prediction</h1>
-                <p class="page-subhead text-text-grey mt-4">Understanding the statistical core of large language models.</p>
-            </header>
-            
-            <div class="space-y-12">
-                <!-- Card 1: Probability is Key -->
-                <div class="content-card bg-secondary-dark p-8 rounded-3xl shadow-2xl hover:shadow-accent-blue/20">
-                    <h3 class="content-card-title text-accent-blue mb-3">Probability is Key</h3>
-                    <p class="text-lg text-text-light">AI systems like Large Language Models (LLMs) function purely based on <strong>probability and statistics</strong>. They calculate the single most likely next word (or token) based on the preceding sequence.</p>
-                </div>
-                
-                <!-- Card 2: The Chain of Possibility -->
-                <div class="content-card bg-secondary-dark p-8 rounded-3xl shadow-2xl hover:shadow-accent-blue/20">
-                    <h3 class="content-card-title text-accent-blue mb-3">The Chain of Possibility</h3>
-                    <p class="text-lg text-text-light">Coherent text is created through a rapid chain of statistical prediction. Each word is a selection based on the probabilities generated from the colossal amount of data the model was trained on.</p>
-                </div>
-
-                <!-- Card 3: Shaping the Output -->
-                <div class="content-card bg-secondary-dark p-8 rounded-3xl shadow-2xl hover:shadow-accent-blue/20">
-                    <h3 class="content-card-title text-accent-blue mb-3">Shaping the Output</h3>
-                    <p class="text-lg text-text-light">Because the process is probabilistic, tiny variations in the initial prompt can shift the model's statistical path, leading to significantly different and unexpected results.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Page 3: Growth & Feedback -->
-        <div id="growth-feedback-page" class="page-content hidden">
-            <header class="text-center mb-16">
-                <h1 class="page-header text-text-light">The Mindset of a Learner</h1>
-                <p class="page-subhead text-text-grey mt-4">Embracing challenges and turning mistakes into momentum.</p>
-            </header>
-            
-            <div class="space-y-12">
-                <!-- Card 1: Growth Mindset -->
-                <div class="content-card bg-secondary-dark p-8 rounded-3xl shadow-2xl hover:shadow-accent-blue/20">
-                    <h3 class="content-card-title text-accent-blue mb-3">Growth Mindset</h3>
-                    <p class="text-lg text-text-light">Commitment to taking on <strong>new challenges</strong>, persisting when the work is difficult, and viewing <strong>failures/mistakes</strong> not as setbacks, but as valuable data for future growth.</p>
-                </div>
-                
-                <!-- Card 2: The Feedback Loop -->
-                <div class="content-card bg-secondary-dark p-8 rounded-3xl shadow-2xl hover:shadow-accent-blue/20">
-                    <h3 class="content-card-title text-accent-blue mb-3">The Feedback Loop</h3>
-                    <p class="text-lg text-text-light">Actively seeking <strong>feedback</strong> from teachers or peers is essential. We use this external input to critically adjust our methods and document the visible improvement in our work.</p>
-                </div>
-
-                <!-- Card 3: Self-Learning Habits -->
-                <div class="content-card bg-secondary-dark p-8 rounded-3xl shadow-2xl hover:shadow-accent-blue/20">
-                    <h3 class="content-card-title text-accent-blue mb-3">Self-Learning Habits</h3>
-                    <p class="text-lg text-text-light">Effective learning requires <strong>focus</strong> and <strong>initiative</strong>. We prioritize being clear on the learning goal and attempting multiple solutions to problems before immediately asking the teacher for the answer.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Page 4: My Achievements -->
         <div id="my-achievements-page" class="page-content hidden">
-            <header class="text-center mb-16">
-                <h1 class="page-header text-text-light">Projects & Mastery</h1>
-                <p class="page-subhead text-text-grey mt-4">Translating knowledge into tangible, high-quality technical work.</p>
+            <header class="mb-12 text-center">
+                <h2 class="text-4xl font-bold text-text-light mb-4">My Achievements</h2>
+                <p class="text-xl text-text-grey">Final products hosted live on GitHub.</p>
             </header>
-            
-            <div class="space-y-12">
-                <!-- Card 1: Mock MacBook Pro Website -->
-                <div class="content-card bg-secondary-dark p-8 rounded-3xl shadow-2xl hover:shadow-accent-blue/20">
-                    <h3 class="content-card-title text-accent-blue mb-3">Mock MacBook Pro Website</h3>
-                    <p class="text-lg text-text-light">A comprehensive single-page web design project demonstrating mastery of <strong>HTML, CSS (Tailwind), and JavaScript</strong>. The site features advanced, interactive scrolling effects and precise visual design execution, successfully mimicking the Apple aesthetic.</p>
-                    <a href="https://leonardzyxu-ui.github.io/Mock-Apple-Macbook-Pro-website/" target="_blank" class="mt-4 inline-block text-accent-blue hover:text-text-light font-medium transition-colors duration-200">View Project Link &rarr;</a>
-                </div>
+
+            <div class="space-y-16">
                 
-                <!-- Card 2: ICT Learning Portfolio (This website) -->
-                <div class="content-card bg-secondary-dark p-8 rounded-3xl shadow-2xl hover:shadow-accent-blue/20">
-                    <h3 class="content-card-title text-accent-blue mb-3">ICT Learning Portfolio</h3>
-                    <p class="text-lg text-text-light">This very website is a self-reflective achievement, showcasing the ability to organize complex information, apply modern UI principles, and use <strong>code to structure and present</strong> learned concepts clearly.</p>
+                <div class="content-card group relative bg-secondary-dark rounded-3xl overflow-hidden border border-white/5 hover:border-accent-blue/50 shadow-2xl transition-all">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
+                    
+                    <div class="p-8 md:p-12">
+                        <div class="md:flex md:justify-between md:items-start">
+                            <div>
+                                <h3 class="text-3xl font-bold text-white mb-2">Falcon 9 ICT Project</h3>
+                                <p class="text-accent-blue font-medium mb-6">The Flagship Design Cycle Project</p>
+                            </div>
+                            <span class="hidden md:inline-block px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-xs font-bold border border-green-500/30">
+                                Live Production
+                            </span>
+                        </div>
+                        
+                        <p class="text-gray-300 text-lg mb-8 max-w-2xl">
+                            A fully responsive website built using the Design Cycle. This project represents the culmination of user interviews (with Mary), iterative prototyping, and AI-assisted code generation. It features relative positioning fixes and a clean, accessible UI.
+                        </p>
+
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="https://leonardzyxu-ui.github.io/Falcon-9-ICT-HW/" target="_blank" class="btn-primary inline-flex items-center justify-center bg-accent-blue text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-blue-600 transition-all hover:shadow-lg hover:shadow-blue-500/25">
+                                Visit Live Website
+                                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Card 3: Analytical Skills -->
-                <div class="content-card bg-secondary-dark p-8 rounded-3xl shadow-2xl hover:shadow-accent-blue/20">
-                    <h3 class="content-card-title text-accent-blue mb-3">Analytical Skills</h3>
-                    <p class="text-lg text-text-light">Demonstrated strong <strong>analytical skills</strong> by breaking down AI behavior, successfully diagnosing why outputs change, and defining a clear strategy for continuous self-improvement in learning.</p>
+                <div class="content-card bg-secondary-dark rounded-3xl overflow-hidden border border-white/5 hover:border-gray-500/50 shadow-xl transition-all">
+                    <div class="p-8 md:p-12">
+                        <h3 class="text-2xl font-bold text-white mb-2">MacBook Pro Interactive Demo</h3>
+                        <p class="text-gray-400 font-medium mb-6">Advanced Kinetic Scrolling & Tailwind CSS</p>
+                        
+                        <p class="text-gray-300 mb-8">
+                            A technical demo replicating the Apple product page experience. Features include <strong>kinetic scrolling animations</strong>, sticky positioning, backdrop-blur effects, and a fully dark-mode optimized Tailwind configuration.
+                        </p>
+
+                        <a href="https://leonardzyxu-ui.github.io/Mock-Apple-Macbook-Pro-website/" target="_blank" class="inline-flex items-center text-text-light hover:text-accent-blue font-semibold transition-colors">
+                            View Demo
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
                 </div>
+
             </div>
         </div>
 
     </main>
 
-    <!-- JavaScript for Single-Page Navigation -->
+    <footer class="bg-primary-black border-t border-secondary-dark/50 py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-text-grey text-sm">© 2025 ICT Learning Portfolio. Built with <span class="text-accent-blue">Tailwind CSS</span>.</p>
+        </div>
+    </footer>
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const navLinks = document.querySelectorAll('.nav-link');
+        function showPage(pageId) {
+            // 1. Hide all pages
             const pages = document.querySelectorAll('.page-content');
-            
-            // Function to show the correct page and update the navigation style
-            const showPage = (pageId) => {
-                // 1. Hide all pages
-                pages.forEach(page => {
-                    page.classList.add('hidden');
-                });
+            pages.forEach(page => {
+                page.classList.add('hidden');
+                page.classList.remove('animate-fade-in'); // Reset animation
+            });
 
-                // 2. Show the target page
-                const targetPage = document.getElementById(pageId);
-                if (targetPage) {
-                    targetPage.classList.remove('hidden');
-                    // Scroll to the top of the content container smoothly
-                    document.getElementById('portfolio-container').scrollIntoView({ behavior: 'smooth' });
-                }
+            // 2. Show the selected page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+                // Trigger reflow to restart animation
+                void targetPage.offsetWidth; 
+                targetPage.classList.add('animate-fade-in');
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
 
-                // 3. Update active nav link style
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.dataset.page === pageId) {
-                        link.classList.add('active');
-                    }
-                });
-            };
-
-            // Add click listeners to navigation links
+            // 3. Update active nav link
+            const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault(); // Prevent default link behavior
-                    const pageId = link.dataset.page;
-                    showPage(pageId);
-                });
+                link.classList.remove('active');
+                if (link.dataset.page === pageId) {
+                    link.classList.add('active');
+                }
             });
+        }
 
-            // Add click listeners to contents links on the home page
-            const contentsLinks = document.querySelectorAll('.contents-link');
-            contentsLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const pageId = link.dataset.page;
-                    showPage(pageId);
-                });
+        // Add event listeners to nav links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = link.dataset.page;
+                showPage(pageId);
             });
-
-
-            // Initial load: show the Home page and set its active link
-            showPage('home-page');
         });
-    </script>
 
+        // Initialize Home Page
+        showPage('home-page');
+    </script>
+    
+    <style>
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </body>
 </html>
