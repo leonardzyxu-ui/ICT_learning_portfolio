@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ICT Learning Portfolio - Concepts & Mastery</title>
+    <title>ICT Learning Portfolio - The Master Collection</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     
@@ -12,284 +12,312 @@
             theme: {
                 extend: {
                     colors: {
-                        'primary-black': '#1c1c1e', // Near-black background
-                        'secondary-dark': '#2c2c2e', // Card background
-                        'accent-blue': '#007aff', // Bright blue highlight (iOS/macOS blue)
-                        'accent-purple': '#5e5ce6', // Secondary accent
-                        'text-light': '#f5f5f7', // Off-white for body text
-                        'text-grey': '#8e8e93', // Subdued grey for details
+                        'primary-black': '#000000', // Deepest black
+                        'secondary-dark': '#1c1c1e', // Card background
+                        'tertiary-dark': '#2c2c2e', // Lighter card/hover
+                        'accent-blue': '#2997ff', // Apple-style bright blue
+                        'accent-purple': '#bf5af2',
+                        'text-light': '#f5f5f7',
+                        'text-grey': '#86868b',
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                     },
+                    boxShadow: {
+                        'glow-blue': '0 0 40px -10px rgba(41, 151, 255, 0.5)',
+                        'glow-purple': '0 0 40px -10px rgba(191, 90, 242, 0.5)',
+                    }
                 }
             }
         }
     </script>
     <style>
-        /* Custom styles for bold, large typography */
+        /* Typography */
         .page-header {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-size: clamp(3rem, 8vw, 6rem);
             line-height: 1.05;
             font-weight: 800;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.03em;
         }
         .page-subhead {
             font-size: clamp(1.25rem, 3vw, 1.75rem);
-            line-height: 1.3;
+            line-height: 1.4;
             font-weight: 400;
         }
-        .content-card-title {
-            font-size: 1.5rem; 
-            font-weight: 700;
-            letter-spacing: -0.01em;
+        
+        /* The "Cool Blue Shade" Mouseover Effect */
+        .hover-glow-blue {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        /* Style for active navigation link */
+        .hover-glow-blue:hover {
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 0 50px -10px rgba(41, 151, 255, 0.4);
+            border-color: rgba(41, 151, 255, 0.3);
+        }
+
+        /* Nav Link Styles */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #2997ff;
+            transition: width 0.3s ease;
+        }
         .nav-link.active {
             color: #f5f5f7;
-            border-bottom: 2px solid #007aff;
         }
-        /* Global transitions */
-        .content-card, .nav-link, .btn-primary {
-            transition: all 0.3s ease-in-out;
+        .nav-link.active::after {
+            width: 100%;
         }
-        /* Hidden utility */
-        .hidden {
-            display: none;
-        }
-        /* Pulse Animation for Digital Media Page */
-        @keyframes pulse-glow {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        .animate-pulse-glow {
-            animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+        /* Utilities */
+        .hidden { display: none; }
+        .glass-panel {
+            background: rgba(28, 28, 30, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
     </style>
 </head>
-<body class="bg-primary-black text-text-light font-sans min-h-screen flex flex-col">
+<body class="bg-primary-black text-text-light font-sans min-h-screen flex flex-col selection:bg-accent-blue selection:text-white">
 
-    <nav class="sticky top-0 z-50 bg-primary-black/90 backdrop-blur-md shadow-lg border-b border-secondary-dark/50">
+    <nav class="sticky top-0 z-50 bg-primary-black/80 backdrop-blur-xl border-b border-white/5">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <div class="flex-shrink-0 cursor-pointer" onclick="showPage('home-page')">
-                    <span class="text-xl font-bold text-text-light tracking-tight">ICT Portfolio</span>
+                <div class="flex-shrink-0 cursor-pointer group" onclick="showPage('home-page')">
+                    <span class="text-xl font-bold tracking-tight group-hover:text-accent-blue transition-colors">ICT Portfolio</span>
                 </div>
+                
                 <div class="hidden md:flex space-x-8">
-                    <a href="#" class="nav-link text-text-grey hover:text-text-light py-2 text-sm font-medium" data-page="home-page">Home</a>
-                    <a href="#" class="nav-link text-text-grey hover:text-text-light py-2 text-sm font-medium" data-page="digital-media-page">Digital Media</a>
-                    <a href="#" class="nav-link text-text-grey hover:text-text-light py-2 text-sm font-medium" data-page="growth-feedback-page">Growth & Feedback</a>
-                    <a href="#" class="nav-link text-text-grey hover:text-text-light py-2 text-sm font-medium" data-page="my-achievements-page">Achievements</a>
-                </div>
-                <div class="md:hidden text-text-grey">
-                    Menu
+                    <button class="nav-link text-text-grey hover:text-text-light text-sm font-medium" onclick="showPage('home-page')" data-page="home-page">Home</button>
+                    <button class="nav-link text-text-grey hover:text-text-light text-sm font-medium" onclick="showPage('digital-media-page')" data-page="digital-media-page">Digital Media</button>
+                    <button class="nav-link text-text-grey hover:text-text-light text-sm font-medium" onclick="showPage('design-cycle-page')" data-page="design-cycle-page">Design Cycle</button>
+                    <button class="nav-link text-text-grey hover:text-text-light text-sm font-medium" onclick="showPage('ai-code-page')" data-page="ai-code-page">AI & Code</button>
+                    <button class="nav-link text-text-grey hover:text-text-light text-sm font-medium" onclick="showPage('growth-page')" data-page="growth-page">Growth</button>
+                    <button class="nav-link text-text-grey hover:text-text-light text-sm font-medium" onclick="showPage('achievements-page')" data-page="achievements-page">Achievements</button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main id="portfolio-container" class="flex-grow py-12 md:py-20 max-w-5xl mx-auto px-4 w-full">
+    <main class="flex-grow py-16 md:py-24 max-w-6xl mx-auto px-4 w-full">
 
-        <div id="home-page" class="page-content animate-fade-in">
-            <header class="text-center mb-16">
-                <h1 class="page-header text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
-                    Concepts & Mastery
+        <div id="home-page" class="page-content animate-fade">
+            <header class="text-center mb-20">
+                <h1 class="page-header text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500">
+                    The Archive.
                 </h1>
                 <p class="page-subhead text-text-grey mt-6 max-w-2xl mx-auto">
-                    A technical portfolio showcasing web development, digital theory, and the design cycle.
+                    A comprehensive collection of my journey through Digital Media, Web Engineering, and the Design Cycle.
                 </p>
             </header>
-            
-            <div class="space-y-12">
-                <div class="content-card bg-secondary-dark/80 backdrop-blur-md p-8 md:p-10 rounded-3xl border border-white/5 shadow-2xl">
-                    <h2 class="content-card-title text-accent-blue mb-4">Executive Summary</h2>
-                    <p class="text-lg leading-relaxed text-gray-300">
-                        This portfolio represents a deep dive into core <strong>Information and Communication Technology (ICT)</strong> concepts. 
-                        It moves beyond simple execution to demonstrate a mastery of <em>why</em> things work—from the physics of raster images to the 
-                        statistical nature of AI. It culminates in professional-grade web projects built with 
-                        <strong>Tailwind CSS</strong> and <strong>Semantically Correct HTML</strong>.
-                    </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div onclick="showPage('digital-media-page')" class="group hover-glow-blue cursor-pointer bg-secondary-dark p-8 rounded-3xl border border-white/5 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-6 opacity-20 group-hover:opacity-40 transition-opacity">
+                        <svg class="w-16 h-16 text-accent-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Digital Media</h3>
+                    <p class="text-text-grey">The physics of Raster vs. Vector. Why pixels are "rakes" and SVGs are math.</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <a href="#" onclick="showPage('digital-media-page')" class="group p-6 rounded-2xl bg-secondary-dark border border-white/5 hover:bg-secondary-dark/80 transition-all hover:scale-[1.02] cursor-pointer">
-                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-accent-blue">Digital Media</h3>
-                        <p class="text-sm text-text-grey">Vector vs Raster, SVG Code, and the "Rake" analogy.</p>
-                    </a>
-                    <a href="#" onclick="showPage('growth-feedback-page')" class="group p-6 rounded-2xl bg-secondary-dark border border-white/5 hover:bg-secondary-dark/80 transition-all hover:scale-[1.02] cursor-pointer">
-                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-green-400">Growth</h3>
-                        <p class="text-sm text-text-grey">The "Liquid Glass" story and resilience in coding.</p>
-                    </a>
-                    <a href="#" onclick="showPage('my-achievements-page')" class="group p-6 rounded-2xl bg-secondary-dark border border-white/5 hover:bg-secondary-dark/80 transition-all hover:scale-[1.02] cursor-pointer">
-                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-purple-400">Achievements</h3>
-                        <p class="text-sm text-text-grey">Falcon 9 & Apple MacBook Pro Projects.</p>
-                    </a>
+                <div onclick="showPage('design-cycle-page')" class="group hover-glow-blue cursor-pointer bg-secondary-dark p-8 rounded-3xl border border-white/5 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-6 opacity-20 group-hover:opacity-40 transition-opacity">
+                        <svg class="w-16 h-16 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Design Cycle</h3>
+                    <p class="text-text-grey">Iterating with Mary. How I used Empathy and Feedback to build the Piano site.</p>
+                </div>
+
+                <div onclick="showPage('ai-code-page')" class="group hover-glow-blue cursor-pointer bg-secondary-dark p-8 rounded-3xl border border-white/5 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-6 opacity-20 group-hover:opacity-40 transition-opacity">
+                        <svg class="w-16 h-16 text-accent-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">AI & Code</h3>
+                    <p class="text-text-grey">Prompt Engineering. The "Liquid Glass" failure and how I fixed it.</p>
                 </div>
             </div>
         </div>
 
         <div id="digital-media-page" class="page-content hidden">
             <header class="mb-12">
-                <h2 class="text-4xl font-bold text-text-light mb-4">Digital Media Mastery</h2>
-                <p class="text-xl text-text-grey">Understanding the "DNA" of digital images and the web.</p>
+                <h2 class="text-4xl font-bold text-white mb-4">Digital Media Mastery</h2>
+                <p class="text-xl text-text-grey">Decoding the DNA of images.</p>
             </header>
 
-            <div class="space-y-12">
-                <section>
-                    <div class="flex items-center space-x-3 mb-6">
-                        <div class="h-8 w-1 bg-accent-blue rounded-full"></div>
-                        <h3 class="text-2xl font-bold text-white">The "Rake" vs. The "Equation"</h3>
-                    </div>
-                    
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div class="content-card bg-secondary-dark p-8 rounded-3xl border border-white/5">
-                            <h4 class="text-xl font-bold text-accent-blue mb-3">Raster Images</h4>
-                            <p class="text-gray-300 leading-relaxed mb-4">
-                                I discovered that the word "Raster" comes from the Latin <em>rastrum</em> (rake). This perfectly describes how early screens worked—an electron beam "raking" across the screen row by row.
-                            </p>
-                            <ul class="list-disc list-inside text-text-grey space-y-2">
-                                <li>Best for: Photographs, blending colors.</li>
-                                <li>Downside: Pixelation when zoomed.</li>
-                                <li>Tool: GIMP (Manipulated pixels directly).</li>
-                            </ul>
-                        </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="hover-glow-blue bg-secondary-dark p-8 rounded-3xl border border-white/5">
+                    <h3 class="text-2xl font-bold text-accent-blue mb-4">Raster = "Rake"</h3>
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        I learned that "Raster" comes from the Latin <em>rastrum</em> (rake). This is the perfect analogy: an electron beam "rakes" across the screen row by row to paint pixels.
+                    </p>
+                    <ul class="space-y-3 text-text-grey">
+                        <li class="flex items-start"><span class="text-accent-blue mr-2">✓</span> Best for: Photographs and complex blending.</li>
+                        <li class="flex items-start"><span class="text-accent-blue mr-2">✓</span> Tool: GIMP (Pixel Manipulation).</li>
+                        <li class="flex items-start"><span class="text-red-400 mr-2">✕</span> Weakness: Pixelates when zoomed.</li>
+                    </ul>
+                </div>
 
-                        <div class="content-card bg-secondary-dark p-8 rounded-3xl border border-white/5">
-                            <h4 class="text-xl font-bold text-accent-purple mb-3">Vector Images</h4>
-                            <p class="text-gray-300 leading-relaxed mb-4">
-                                Unlike Raster, Vectors are defined by <strong>magnitude and direction</strong> (Math & Physics). I opened an SVG file in a text editor to prove this.
-                            </p>
-                            <div class="bg-black/50 p-4 rounded-xl font-mono text-xs text-green-400 overflow-x-auto border border-gray-800">
-                                &lt;rect x="10" y="10" width="30" height="30" fill="#ff3d00"/&gt;<br>
-                                &lt;!-- I learned that shapes are just code instructions! --&gt;
-                            </div>
-                        </div>
+                <div class="hover-glow-blue bg-secondary-dark p-8 rounded-3xl border border-white/5">
+                    <h3 class="text-2xl font-bold text-accent-purple mb-4">Vector = Math</h3>
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        Vectors are defined by <strong>Magnitude and Direction</strong>. They aren't pixels; they are mathematical instructions. I verified this by opening an SVG in a text editor:
+                    </p>
+                    <div class="bg-black/50 p-4 rounded-xl font-mono text-sm text-green-400 border border-white/10">
+                        &lt;circle cx="50" cy="50" r="40" /&gt;<br>
+                        &lt;!-- Code defines the shape! --&gt;
                     </div>
-                </section>
-
-                <section>
-                    <div class="flex items-center space-x-3 mb-6">
-                        <div class="h-8 w-1 bg-purple-500 rounded-full"></div>
-                        <h3 class="text-2xl font-bold text-white">The Web Engine: HTML & CSS</h3>
-                    </div>
-                    <div class="content-card bg-secondary-dark p-8 rounded-3xl border border-white/5">
-                        <p class="text-xl text-text-light mb-6">
-                            HTML and CSS are not just "code"; they are the <strong>language between the computer and the server</strong>.
-                        </p>
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <h4 class="font-bold text-white mb-2">My CSS Breakthroughs</h4>
-                                <p class="text-text-grey text-sm">
-                                    I moved beyond basic styling to advanced animations. I implemented <strong>gradient backgrounds</strong> that shift colors over time and created <strong>pulse indicators</strong> to guide user attention without distraction.
-                                </p>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-white mb-2">Structure First</h4>
-                                <p class="text-text-grey text-sm">
-                                    I learned that clean HTML structure is critical. Using proper tags (Semantic HTML) ensures that the CSS has a solid foundation to paint upon.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                </div>
             </div>
         </div>
 
-        <div id="growth-feedback-page" class="page-content hidden">
+        <div id="design-cycle-page" class="page-content hidden">
             <header class="mb-12">
-                <h2 class="text-4xl font-bold text-text-light mb-4">Growth Mindset</h2>
-                <p class="text-xl text-text-grey">Resilience, negotiation, and the feedback loop.</p>
+                <h2 class="text-4xl font-bold text-white mb-4">The Design Cycle</h2>
+                <p class="text-xl text-text-grey">From User Empathy to Final Product.</p>
             </header>
 
             <div class="space-y-8">
-                <div class="content-card bg-gradient-to-br from-secondary-dark to-[#1a1a2e] p-8 md:p-10 rounded-3xl border border-blue-500/20 shadow-2xl relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-8 opacity-10">
-                        <svg class="w-32 h-32 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+                <div class="hover-glow-blue bg-secondary-dark p-8 rounded-3xl border border-white/5">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide mr-4">Phase 1: Empathy</span>
+                        <h3 class="text-2xl font-bold text-white">The Client Interview</h3>
                     </div>
-                    
-                    <h3 class="text-2xl font-bold text-white mb-4">The "Liquid Glass" Arc</h3>
-                    <div class="space-y-4 text-gray-300">
-                        <p>
-                            <span class="text-accent-blue font-bold">The Challenge:</span> I wanted to create a "Liquid Glass" effect for my website using advanced CSS.
-                        </p>
-                        <p>
-                            <span class="text-red-400 font-bold">The Failure:</span> I tried everything. Standard CSS filters failed. I tried WebGL, but it broke the site's performance and was too complex for the timeframe. I hit a wall.
-                        </p>
-                        <p>
-                            <span class="text-green-400 font-bold">The Pivot (Growth):</span> Instead of giving up or submitting broken code, I demonstrated professional communication. I wrote a detailed email to my teacher (Jaydon), explaining the technical blocker, showing my attempts (WebGl), and negotiating a practical change to the requirements.
-                        </p>
-                        <p class="italic text-text-grey border-l-2 border-accent-blue pl-4 mt-4">
-                            "I learned that being a developer isn't just about writing code; it's about managing resources and communicating clearly when a solution isn't viable."
-                        </p>
-                    </div>
+                    <p class="text-gray-300 text-lg">
+                        I interviewed <strong>Mary</strong>. She needed a website for her piano hobby. 
+                        <br><br>
+                        <span class="text-text-grey">Key Insight:</span> Existing sites were too complex. She wanted a simple, friendly place to share "Practice Tips" and "Easy Songs" for beginners.
+                    </p>
                 </div>
 
-                <div class="content-card bg-secondary-dark p-8 rounded-3xl border border-white/5">
-                    <h3 class="text-xl font-bold text-white mb-4">Iterative Design: The Falcon 9 Project</h3>
-                    <p class="text-gray-300 mb-4">
-                        Feedback is fuel. For my Falcon 9 project, I didn't just submit the first draft.
-                    </p>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="bg-primary-black/50 p-5 rounded-xl">
-                            <h4 class="text-sm font-bold text-red-400 uppercase tracking-wide mb-2">Feedback Received</h4>
-                            <p class="text-sm text-text-grey">"Get rid of the points and arrows... delete the bottom part of that pic."</p>
+                <div class="hover-glow-blue bg-secondary-dark p-8 rounded-3xl border border-white/5">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide mr-4">Phase 4: Prototype & Fix</span>
+                        <h3 class="text-2xl font-bold text-white">The Pivot</h3>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="font-bold text-red-400 mb-2">The Problem</h4>
+                            <p class="text-text-grey">"The black keys on the piano keyboard were using absolute positioning, which broke on different screen sizes."</p>
                         </div>
-                        <div class="bg-primary-black/50 p-5 rounded-xl">
-                            <h4 class="text-sm font-bold text-green-400 uppercase tracking-wide mb-2">Action Taken</h4>
-                            <p class="text-sm text-text-grey">I re-edited the assets, cleaned up the UI, and pushed a new version to GitHub that matched the cleaner aesthetic requested.</p>
+                        <div>
+                            <h4 class="font-bold text-green-400 mb-2">The Solution</h4>
+                            <p class="text-text-grey">I used AI to refactor the CSS to <strong>relative positioning</strong>, ensuring the keys stayed aligned on mobile and desktop.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="my-achievements-page" class="page-content hidden">
-            <header class="mb-12 text-center">
-                <h2 class="text-4xl font-bold text-text-light mb-4">My Achievements</h2>
-                <p class="text-xl text-text-grey">Final products hosted live on GitHub.</p>
+        <div id="ai-code-page" class="page-content hidden">
+            <header class="mb-12">
+                <h2 class="text-4xl font-bold text-white mb-4">AI & Code</h2>
+                <p class="text-xl text-text-grey">Using AI as a co-pilot, not a crutch.</p>
             </header>
 
-            <div class="space-y-16">
-                
-                <div class="content-card group relative bg-secondary-dark rounded-3xl overflow-hidden border border-white/5 hover:border-accent-blue/50 shadow-2xl transition-all">
-                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
-                    
-                    <div class="p-8 md:p-12">
-                        <div class="md:flex md:justify-between md:items-start">
-                            <div>
-                                <h3 class="text-3xl font-bold text-white mb-2">Falcon 9 ICT Project</h3>
-                                <p class="text-accent-blue font-medium mb-6">The Flagship Design Cycle Project</p>
-                            </div>
-                            <span class="hidden md:inline-block px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-xs font-bold border border-green-500/30">
-                                Live Production
-                            </span>
-                        </div>
-                        
-                        <p class="text-gray-300 text-lg mb-8 max-w-2xl">
-                            A fully responsive website built using the Design Cycle. This project represents the culmination of user interviews (with Mary), iterative prototyping, and AI-assisted code generation. It features relative positioning fixes and a clean, accessible UI.
+            <div class="hover-glow-blue bg-gradient-to-br from-secondary-dark to-[#101015] p-10 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden mb-8">
+                <div class="relative z-10">
+                    <h3 class="text-3xl font-bold text-white mb-6">The "Liquid Glass" Incident</h3>
+                    <div class="space-y-4 text-lg text-gray-300">
+                        <p>
+                            I attempted to create a complex "Liquid Glass" distortion effect. I tried standard CSS filters. I tried WebGL. Nothing worked—it just slowed down the site.
                         </p>
+                        <p class="pl-4 border-l-2 border-accent-blue italic text-white">
+                            "Instead of giving up, I wrote a professional email to my teacher (Jaydon). I explained the technical blocker, attached my failed WebGL attempts, and negotiated a design change."
+                        </p>
+                        <p>
+                            This taught me that <strong>Communication > Brute Force</strong>.
+                        </p>
+                    </div>
+                </div>
+            </div>
 
-                        <div class="flex flex-col sm:flex-row gap-4">
-                            <a href="https://leonardzyxu-ui.github.io/Falcon-9-ICT-HW/" target="_blank" class="btn-primary inline-flex items-center justify-center bg-accent-blue text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-blue-600 transition-all hover:shadow-lg hover:shadow-blue-500/25">
-                                Visit Live Website
-                                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                            </a>
-                        </div>
+            <div class="hover-glow-blue bg-secondary-dark p-8 rounded-3xl border border-white/5">
+                <h3 class="text-2xl font-bold text-white mb-4">Prompt Engineering Strategy</h3>
+                <p class="text-text-grey mb-4">For the Falcon 9 project, I documented every prompt. I learned that vague prompts gives vague code.</p>
+                <div class="bg-black/50 p-4 rounded-xl border border-white/10">
+                    <span class="text-xs text-blue-400 font-bold uppercase">Prompt Iteration</span>
+                    <p class="text-gray-300 mt-2 font-mono text-sm">"Generate a website" <span class="text-red-500">→ Bad</span></p>
+                    <p class="text-gray-300 mt-1 font-mono text-sm">"Create a dark-themed responsive navbar using Tailwind CSS with a sticky blur effect" <span class="text-green-500">→ Good</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="growth-page" class="page-content hidden">
+            <header class="mb-12">
+                <h2 class="text-4xl font-bold text-white mb-4">Growth & Feedback</h2>
+                <p class="text-xl text-text-grey">Turning criticism into quality.</p>
+            </header>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="hover-glow-blue bg-secondary-dark p-8 rounded-3xl border border-white/5">
+                    <h3 class="text-xl font-bold text-white mb-4">Feedback Received</h3>
+                    <p class="text-text-grey mb-4">My teacher noted that the "Points and Arrows" on my diagram were distracting.</p>
+                    <div class="bg-green-500/10 p-4 rounded-lg border border-green-500/20">
+                        <p class="text-green-400 text-sm"><strong>Action:</strong> I re-edited the image assets to be cleaner and re-uploaded the site to GitHub immediately.</p>
                     </div>
                 </div>
 
-                <div class="content-card bg-secondary-dark rounded-3xl overflow-hidden border border-white/5 hover:border-gray-500/50 shadow-xl transition-all">
-                    <div class="p-8 md:p-12">
-                        <h3 class="text-2xl font-bold text-white mb-2">MacBook Pro Interactive Demo</h3>
-                        <p class="text-gray-400 font-medium mb-6">Advanced Kinetic Scrolling & Tailwind CSS</p>
-                        
-                        <p class="text-gray-300 mb-8">
-                            A technical demo replicating the Apple product page experience. Features include <strong>kinetic scrolling animations</strong>, sticky positioning, backdrop-blur effects, and a fully dark-mode optimized Tailwind configuration.
-                        </p>
+                <div class="hover-glow-blue bg-secondary-dark p-8 rounded-3xl border border-white/5">
+                    <h3 class="text-xl font-bold text-white mb-4">Leadership</h3>
+                    <p class="text-text-grey mb-4">I noticed Midas and Charlotte struggling with image hosting.</p>
+                    <div class="bg-blue-500/10 p-4 rounded-lg border border-blue-500/20">
+                        <p class="text-blue-400 text-sm"><strong>Action:</strong> I taught them how to use <code>postimages.org</code> to generate direct links for HTML, unblocking their progress.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                        <a href="https://leonardzyxu-ui.github.io/Mock-Apple-Macbook-Pro-website/" target="_blank" class="inline-flex items-center text-text-light hover:text-accent-blue font-semibold transition-colors">
+        <div id="achievements-page" class="page-content hidden">
+            <header class="mb-12 text-center">
+                <h2 class="text-4xl font-bold text-white mb-4">The Gallery</h2>
+                <p class="text-xl text-text-grey">Final Production Builds.</p>
+            </header>
+
+            <div class="space-y-12">
+                
+                <div class="hover-glow-blue group relative bg-secondary-dark rounded-3xl overflow-hidden border border-white/5 shadow-2xl">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-600"></div>
+                    <div class="p-10">
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <h3 class="text-3xl font-bold text-white">Falcon 9 Project</h3>
+                                <p class="text-accent-blue font-medium mt-1">Design Cycle Implementation</p>
+                            </div>
+                            <span class="bg-green-500/20 text-green-400 text-xs font-bold px-3 py-1 rounded-full border border-green-500/30">LIVE</span>
+                        </div>
+                        <p class="text-gray-400 mb-8 max-w-2xl">
+                            A fully responsive website built from user interviews. Features relative positioning fixes, AI-assisted code generation, and a clean UI based on iterative feedback.
+                        </p>
+                        <a href="https://leonardzyxu-ui.github.io/Falcon-9-ICT-HW/" target="_blank" class="inline-flex items-center justify-center bg-accent-blue text-white px-8 py-3 rounded-full font-bold transition-transform hover:scale-105 active:scale-95">
+                            Visit Website
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hover-glow-blue group relative bg-secondary-dark rounded-3xl overflow-hidden border border-white/5 shadow-2xl">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gray-400 to-white"></div>
+                    <div class="p-10">
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <h3 class="text-3xl font-bold text-white">MacBook Pro Interactive</h3>
+                                <p class="text-gray-400 font-medium mt-1">Advanced CSS & Kinetic Scroll</p>
+                            </div>
+                            <span class="bg-blue-500/20 text-blue-300 text-xs font-bold px-3 py-1 rounded-full border border-blue-500/30">DEMO</span>
+                        </div>
+                        <p class="text-gray-400 mb-8 max-w-2xl">
+                            A technical demo replicating the Apple product page experience. Features <strong>kinetic scrolling animations</strong>, sticky positioning, backdrop-blur effects, and dark-mode optimization.
+                        </p>
+                        <a href="https://leonardzyxu-ui.github.io/Mock-Apple-Macbook-Pro-website/" target="_blank" class="inline-flex items-center justify-center bg-white text-black px-8 py-3 rounded-full font-bold transition-transform hover:scale-105 active:scale-95">
                             View Demo
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                         </a>
                     </div>
                 </div>
@@ -299,62 +327,50 @@
 
     </main>
 
-    <footer class="bg-primary-black border-t border-secondary-dark/50 py-12 mt-12">
+    <footer class="border-t border-white/5 py-12 mt-12 bg-black">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-text-grey text-sm">© 2025 ICT Learning Portfolio. Built with <span class="text-accent-blue">Tailwind CSS</span>.</p>
+            <p class="text-text-grey text-sm">© 2026 ICT Learning Portfolio. Engineered with Tailwind CSS.</p>
         </div>
     </footer>
 
     <script>
         function showPage(pageId) {
-            // 1. Hide all pages
-            const pages = document.querySelectorAll('.page-content');
-            pages.forEach(page => {
-                page.classList.add('hidden');
-                page.classList.remove('animate-fade-in'); // Reset animation
+            // Hide all pages
+            document.querySelectorAll('.page-content').forEach(p => {
+                p.classList.add('hidden');
+                p.classList.remove('animate-fade');
             });
 
-            // 2. Show the selected page
-            const targetPage = document.getElementById(pageId);
-            if (targetPage) {
-                targetPage.classList.remove('hidden');
-                // Trigger reflow to restart animation
-                void targetPage.offsetWidth; 
-                targetPage.classList.add('animate-fade-in');
-                
-                // Scroll to top
+            // Show target
+            const target = document.getElementById(pageId);
+            if(target) {
+                target.classList.remove('hidden');
+                void target.offsetWidth; // Trigger reflow
+                target.classList.add('animate-fade');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
-            // 3. Update active nav link
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.dataset.page === pageId) {
-                    link.classList.add('active');
+            // Update Nav
+            document.querySelectorAll('.nav-link').forEach(btn => {
+                btn.classList.remove('active', 'text-text-light');
+                btn.classList.add('text-text-grey');
+                if(btn.dataset.page === pageId) {
+                    btn.classList.add('active', 'text-text-light');
+                    btn.classList.remove('text-text-grey');
                 }
             });
         }
 
-        // Add event listeners to nav links
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const pageId = link.dataset.page;
-                showPage(pageId);
-            });
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage('home-page');
         });
-
-        // Initialize Home Page
-        showPage('home-page');
     </script>
-    
+
     <style>
-        .animate-fade-in {
-            animation: fadeIn 0.5s ease-out forwards;
-        }
+        .animate-fade { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
